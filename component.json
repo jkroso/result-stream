@@ -1,0 +1,28 @@
+{
+  "name": "result-stream",
+  "repo": "jkroso/result-stream",
+  "description": "a linked list designed for working with [results](http://github.com/jkroso/result)",
+  "version": "0.1.0",
+  "keywords": [
+    "result",
+    "stream",
+    "linked list"
+  ],
+  "dependencies": {
+    "jkroso/result": "0.3.3",
+    "jkroso/when": "3.2.5",
+    "component/inherit": "0.0.2"
+  },
+  "development": {
+    "visionmedia/mocha": "1.12.0",
+    "jkroso/curryable": "0.1.1",
+    "jkroso/serve": "1.4.6",
+    "chaijs/chai-spies": "0.5.1",
+    "chaijs/chai": "1.7.2"
+  },
+  "scripts": [
+    "index.js",
+    "lazy.js"
+  ],
+  "license": "MIT"
+}
