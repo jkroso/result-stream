@@ -1,9 +1,5 @@
 
-var s = require('when/apply').sexpr
-var lift = require('when/decorate')
-var defer = require('result/defer')
 var inherit = require('inherit')
-var Result = require('result')
 var when = require('when')
 var Stream = require('./')
 var emptyStream = Stream.nil

@@ -1,8 +1,8 @@
 
-var s = require('when/apply').sexpr
-var lift = require('when/decorate')
 var defer = require('result/defer')
+var lift = require('when/lift')
 var Result = require('result')
+var s = require('when/sexpr')
 var when = require('when')
 
 var call = Function.call
@@ -77,15 +77,15 @@ var limit = lift(function(n, stream){
 })
 
 Stream.prototype.each = function(fn, ctx){
-	return each(this, fn, ctx)
+	return each.plain(this, fn, ctx)
 }
 
 Stream.prototype.take = function(n){
-	return limit(n, this)
+	return limit.plain(n, this)
 }
 
 Stream.prototype.item = function(n){
-	return item(n, this)
+	return item.plain(n, this)
 }
 
 Stream.prototype.reduce = function(fn, initial){
