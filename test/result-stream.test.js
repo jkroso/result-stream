@@ -125,7 +125,7 @@ function common(Stream){
 	describe('Stream#append(a, b)', function(){
 		it('should create a new Stream with `b` at the end', function(done){
 			var b = Stream.make(delay(4), 5)
-			is.equal(ints.append(b).item(4), 5).node(done)
+			when(is.equal(ints.append(b).item(4), 5), done, done)
 		})
 	})
 
@@ -148,42 +148,34 @@ function common(Stream){
 	})
 
 	describe('Stream.ones', function(){
-		it('should return an Infinite stream of ones', function(done){
-			when(Stream.ones().take(4), function(ones){
-				is.deepEqual(ones.toArray(), [1,1,1,1]).node(done)
-			})
+		it('should return an Infinite stream of ones', function(){
+			is.deepEqual(Stream.ones().take(4).toArray(), [1,1,1,1])
 		})
 	})
 
 	describe('Stream.ints', function(){
-		it('should return a Infinite stream of positive ints', function(done){
-			when(Stream.ints().take(5), function(ints){
-				is.deepEqual(ints.toArray(), [1,2,3,4,5]).node(done)
-			})
+		it('should return a Infinite stream of positive ints', function(){
+			is.deepEqual(Stream.ints().take(5).toArray(), [1,2,3,4,5])
 		})
 	})
 
 	describe('Stream.make', function(){
-		it('should make a stream from arguments', function(done){
-			is.deepEqual(Stream.make(1,2,3).toArray(), [1,2,3]).node(done)
+		it('should make a stream from arguments', function(){
+			is.deepEqual(Stream.make(1,2,3).toArray(), [1,2,3])
 		})
 	})
 
 	describe('Stream.range', function(){
-		it('should make a stream of ints from `low` to `high`', function(done){
-			is.deepEqual(Stream.range(1,3).toArray(), [1,2,3]).node(done)
+		it('should make a stream of ints from `low` to `high`', function(){
+			is.deepEqual(Stream.range(1,3).toArray(), [1,2,3])
 		})
 		
-		it('max defaults to Infinity', function(done){
-			when(Stream.range(10).take(2), function(ints){
-				is.deepEqual(ints.toArray(), [10,11]).node(done)
-			})
+		it('max defaults to Infinity', function(){
+			is.deepEqual(Stream.range(10).take(2).toArray(), [10,11])
 		})
 		
-		it('defaults to the natural numbers', function(done){
-			when(Stream.range().take(2), function(naturals){
-				is.deepEqual(naturals.toArray(), [1,2]).node(done)
-			})
+		it('defaults to the natural numbers', function(){
+			is.deepEqual(Stream.range().take(2).toArray(), [1,2])
 		})
 	})
 
