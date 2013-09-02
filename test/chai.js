@@ -1,5 +1,5 @@
 
-var lift = require('when/lift')
+var lift = require('lift-result')
 var curry = require('curryable')
 var chai = require('chai')
 

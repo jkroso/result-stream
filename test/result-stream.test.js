@@ -61,7 +61,7 @@ function common(Stream){
 		it('should iterate over each value', function(done){
 			spy = chai.spy(inc)
 			emptyStream.each(spy)
-			spy.should.not.have.been.called
+			spy.should.not.have.been.called()
 			ints.each(spy).then(function(){
 				spy.should.have.been.called(3)
 			}).node(done)
@@ -71,7 +71,7 @@ function common(Stream){
 	describe('Stream#reduce()', function(){
 		it('should reduce over each value', function(done){
 			emptyStream.reduce(spy, 0)
-			spy.should.not.have.been.called
+			spy.should.not.have.been.called()
 			ints.reduce(add, 0).then(is.equal(6)).node(done)
 		})
 

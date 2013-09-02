@@ -1,8 +1,8 @@
 
+var s = require('lift-result/sexpr')
 var defer = require('result/defer')
-var lift = require('when/lift')
+var lift = require('lift-result')
 var Result = require('result')
-var s = require('when/sexpr')
 var when = require('when')
 
 var call = Function.call
