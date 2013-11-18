@@ -3,10 +3,10 @@
   "version": "0.1.1",
   "description": "a linked list designed for working with [results](http://github.com/jkroso/result)",
   "dependencies": {
-    "inherit": "http://github.com/nathan7/inherit/tarball/f1a75b4844",
-    "when": "http://github.com/jkroso/when/tarball/3.4.0",
-    "lift-result": "0.1.0",
-    "result": "0.3.4",
+    "inherit": "nathan7/inherit#f1a75b4844",
+    "lazy-property": "0.0.2",
+    "lift-result": "0.1.1",
+    "result": "0.4.3",
     "weak": "0.2.2"
   },
   "devDependencies": {},

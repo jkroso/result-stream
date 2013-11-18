@@ -1,49 +1,42 @@
 
-var chai = require('./chai')
-var is = chai.assert
-var LazyStream = require('../lazy')
 var Result = require('result')
-var when = require('when')
+var chai = require('./chai')
 var Stream = require('..')
-var emptyStream = Stream.nil
+var is = chai.assert
 
 describe('result-stream', function(){
-	describe('Stream#head()', function(){
+	var ints
+	var spy
+	beforeEach(function(){
+		ints = Stream.make(delay(1), 2, delay(3))
+		spy = chai.spy()
+	})
+
+	describe('Stream#head', function(){
 		it('should return the streams value', function(){
-			new Stream(1).head().should.equal(1)
+			new Stream(1).head.should.equal(1)
 		})
 	})
 
-	describe('Stream#tail()', function(){
+	describe('Stream#tail', function(){
 		it('should return the next stream node', function(){
 			var tail = new Stream(2)
-			new Stream(1, tail).tail().should.equal(tail)
+			new Stream(1, tail).tail.should.equal(tail)
 		})
 	})
 
 	describe('the empty stream', function(){
 		it('should throw when read', function(){
 			(function(){
-				emptyStream.head()
+				Stream.nil.head
 			}).should.throw()
 		})
 
 		it('should throw when accessing tail', function(){
 			(function(){
-				emptyStream.tail()
+				Stream.nil.tail
 			}).should.throw()
 		})
-	})
-
-	common(Stream)
-})
-
-function common(Stream){
-	var ints
-	var spy
-	beforeEach(function(){
-		ints = Stream.make(delay(1), 2, delay(3))
-		spy = chai.spy()
 	})
 
 	function add(a, b){
@@ -60,7 +53,7 @@ function common(Stream){
 	describe('Stream#forEach()', function(){
 		it('should iterate over each value', function(done){
 			spy = chai.spy(inc)
-			emptyStream.each(spy)
+			Stream.nil.each(spy)
 			spy.should.not.have.been.called()
 			ints.each(spy).then(function(){
 				spy.should.have.been.called(3)
@@ -70,13 +63,13 @@ function common(Stream){
 
 	describe('Stream#reduce()', function(){
 		it('should reduce over each value', function(done){
-			emptyStream.reduce(spy, 0)
+			Stream.nil.reduce(spy, 0)
 			spy.should.not.have.been.called()
 			ints.reduce(add, 0).then(is.equal(6)).node(done)
 		})
 
 		it('should handle missing intial values', function(done){
-			emptyStream.reduce(add).read(null, function(e){
+			Stream.nil.reduce(add).read(null, function(e){
 				is.ok(e)
 				ints.reduce(add).then(is.equal(6)).node(done)
 			})
@@ -85,7 +78,7 @@ function common(Stream){
 
 	describe('Stream#length()', function(){
 		it('should return the number of items in the stream', function(done){
-			is.equal(emptyStream.length(), 0)
+			is.equal(Stream.nil.length(), 0)
 			is.equal(ints.length(), 3).node(done)
 		})
 	})
@@ -102,7 +95,7 @@ function common(Stream){
 		})
 
 		it('should noop on emptyStream', function(){
-			emptyStream.map(inc).should.equal(emptyStream)
+			Stream.nil.map(inc).should.equal(Stream.nil)
 		})
 	})
 
@@ -118,14 +111,14 @@ function common(Stream){
 				return n % 2 === 0
 			}).then(function(ints){
 				return is.deepEqual(ints.toArray(), [2])
-			}).node(done) 
+			}).node(done)
 		})
 	})
 
 	describe('Stream#append(a, b)', function(){
 		it('should create a new Stream with `b` at the end', function(done){
 			var b = Stream.make(delay(4), 5)
-			when(is.equal(ints.append(b).item(4), 5), done, done)
+			Result.when(is.equal(ints.append(b).item(4), 5), done, done)
 		})
 	})
 
@@ -169,11 +162,11 @@ function common(Stream){
 		it('should make a stream of ints from `low` to `high`', function(){
 			is.deepEqual(Stream.range(1,3).toArray(), [1,2,3])
 		})
-		
+
 		it('max defaults to Infinity', function(){
 			is.deepEqual(Stream.range(10).take(2).toArray(), [10,11])
 		})
-		
+
 		it('defaults to the natural numbers', function(){
 			is.deepEqual(Stream.range().take(2).toArray(), [1,2])
 		})
@@ -184,10 +177,6 @@ function common(Stream){
 			is.ok(Stream.equals(Stream.range(1,3), ints)).node(done)
 		})
 	})
-}
-
-describe('lazy-stream', function(){
-	common(LazyStream)
 })
 
 if (typeof process != 'undefined') describe('read-file', function(){
@@ -221,7 +210,7 @@ if (typeof process != 'undefined') describe('read-file', function(){
 
 	it('should support partial reads', function(done){
 		read(__filename, 2).then(function(stream){
-			return is.equal(stream.head(), file.slice(0, 2))
+			return is.equal(stream.head, file.slice(0, 2))
 		}).node(done)
 	})
 })

@@ -5,9 +5,7 @@ a linked list designed for working with [results](http://github.com/jkroso/resul
 
 ## Lazy evaluation
 
-The [main](/index.js) data structure exported from this package is designed to run eagerly. However, with deferred results we can make it behave lazily. See the [examples](/examples/lazy.js). Sometimes deferred results don't feel like the cleanest solution though so I have started implementing a [variation](/lazy.js) with built in support for on demand computation.
-
-One common problem with using a lazy evaluation strategy while working with external resources is when to clean up external references. Obviously you want to do that as soon as all consumers are finished reading but how to you detect that moment. If your reading a file and read to the end then you can just clean up then but what if your consumer stops reading part way through. You could use a generous timeout or asking consumers to explicitly call `close()` but both kind of suck. Node itself asks you to completely consume all resources. However, it turns out thanks to the [weak](https://npmjs.org/package/weak) package we can hook into the garbage collector and thereby know exactly when nobody cares about our external resource. Lazy IO is no longer a leaky abstraction!
+By using defered results we can make nice lazily evaluated streams. See the [examples](/examples/lazy.js). One common problem with using a lazy evaluation strategy while working with external resources such as files is when to close them down. Obviously you want to do that as soon as all consumers are finished reading but how to you detect that moment. If your reading a file and read to the end then you can just clean up then but what if your consumer stops reading part way through. You could use a generous timeout or ask consumers to explicitly call `close()` but both kind of suck. Node itself asks you to completely consume all resources. However, it turns out thanks to the [weak](https://npmjs.org/package/weak) package we can hook into the garbage collector to know exactly when nobody cares about our external resource. Lazy IO is no longer a leaky abstraction!
 
 ## Installation
 
@@ -18,7 +16,7 @@ _With [component](//github.com/component/component), [packin](//github.com/jkros
 then in your app:
 
 ```js
-var result-stream = require('result-stream')
+var Stream = require('result-stream')
 ```
 
 ## API
@@ -29,4 +27,4 @@ var result-stream = require('result-stream')
 
 ## Running the tests
 
-Just run `make`. It will install and start a development server leaving the tests waiting for you [at](http://localhost:3000/test)
+Just run `make`
