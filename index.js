@@ -9,6 +9,13 @@ var when = Result.when
 
 module.exports = Stream
 
+/**
+ * the Stream constructor
+ *
+ * @param {Any} head
+ * @param {Stream} [tail]
+ */
+
 function Stream(head, tail){
 	this.head = head
 	this.tail = tail || emptyStream
@@ -28,8 +35,6 @@ lazy(emptyStream, 'tail', function(){
 	throw new Error('Can\'t get the tail of the empty stream')
 })
 
-emptyStream.empty = true
-Stream.prototype.empty = false
 Stream.nil = emptyStream
 
 /**
