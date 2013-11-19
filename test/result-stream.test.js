@@ -177,6 +177,15 @@ describe('result-stream', function(){
 			is.ok(Stream.equals(Stream.range(1,3), ints)).node(done)
 		})
 	})
+
+	describe('Stream.filter', function(){
+		it('should create a new filtered stream', function(done){
+			var even = Stream.filter(function(a){
+				return a % 2 == 0
+			}, ints)
+			is.ok(Stream.equals(even, new Stream(2))).node(done)
+		})
+	})
 })
 
 if (typeof process != 'undefined') describe('read-file', function(){

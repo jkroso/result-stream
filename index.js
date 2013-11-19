@@ -208,13 +208,17 @@ Stream.prototype.scale = function(factor){
 }
 
 Stream.prototype.filter = function(ok){
-	if (this === emptyStream) return this
+	return Stream.filter(ok, this)
+}
+
+Stream.filter = lift(function filter(ok, stream){
+	if (stream === emptyStream) return stream
 	return s(function(val, tail){
 		return ok(val)
-			? new Stream(val, tail.filter(ok))
-			: tail.filter(ok)
-	}, this.head, this.tail)
-}
+			? new Stream(val, filter(ok, tail))
+			: filter(ok, tail)
+	}, stream.head, stream.tail)
+})
 
 Stream.prototype.drop = function(n){
 	if (this === emptyStream) return this
