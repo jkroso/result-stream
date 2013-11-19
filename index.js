@@ -263,14 +263,29 @@ Stream.ints = function(){
 	return next()
 }
 
+/**
+ * create a Stream containing `arguments`
+ *
+ * @param {Any} ...
+ * @return {Stream}
+ */
+
 Stream.make = function(){
-	if (!arguments.length) return emptyStream
-	return new Stream(arguments[0], call.apply(Stream.make, arguments))
+	return Stream.fromArray(arguments)
 }
 
+/**
+ * create a Stream from an Array
+ *
+ * @param {Array} array
+ * @return {Stream}
+ */
+
 Stream.fromArray = function(array) {
-	if (!array.length) return emptyStream
-	return new Stream(array[0], Stream.fromArray(array.slice(1)))
+	var stream = emptyStream
+	var i = array.length
+	while (i--) stream = new Stream(array[i], stream)
+	return stream
 }
 
 /**
