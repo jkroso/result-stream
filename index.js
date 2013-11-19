@@ -211,6 +211,14 @@ Stream.prototype.filter = function(ok){
 	return Stream.filter(ok, this)
 }
 
+/**
+ * create a stream filter by and `ok` function
+ *
+ * @param {Function} ok
+ * @param {Stream} stream
+ * @return {Stream}
+ */
+
 Stream.filter = lift(function filter(ok, stream){
 	if (stream === emptyStream) return stream
 	return s(function(val, tail){

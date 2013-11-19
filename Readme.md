@@ -63,6 +63,27 @@ function add(a, b){ return a + b }
 
   ensure `stream` ends after `n` nodes
 
+### Stream.filter
+
+  create a stream filter by and `ok` function
+
+### Stream.make(...)
+
+  create a Stream containing `arguments`
+
+### Stream.fromArray(array)
+
+  create a Stream from an Array
+
+### Stream.range(low, [high])
+
+  create a stream of numbers from `low` to `high`. If
+  `high` is ommited then the stream will be Infinite
+
+### Stream.equals
+
+  check if stream `a` is equivilent to `b`
+
 ## Running the tests
 
 Just run `make`
