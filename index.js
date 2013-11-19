@@ -137,9 +137,9 @@ Stream.prototype.reduce = function(fn, initial){
 	return reduce(this, fn, initial)
 }
 
-Stream.prototype.length = function(){
+lazy(Stream.prototype, 'length', function(){
 	return reduce(this, inc, 0)
-}
+})
 
 Stream.prototype.map = function(f){
 	if (this === emptyStream) return this

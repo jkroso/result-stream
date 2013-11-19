@@ -76,10 +76,10 @@ describe('result-stream', function(){
 		})
 	})
 
-	describe('Stream#length()', function(){
+	describe('Stream#length', function(){
 		it('should return the number of items in the stream', function(done){
-			is.equal(Stream.nil.length(), 0)
-			is.equal(ints.length(), 3).node(done)
+			is.equal(Stream.nil.length, 0)
+			is.equal(ints.length, 3).node(done)
 		})
 	})
 
