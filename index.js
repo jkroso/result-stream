@@ -273,6 +273,15 @@ Stream.fromArray = function(array) {
 	return new Stream(array[0], Stream.fromArray(array.slice(1)))
 }
 
+/**
+ * create a stream of numbers from `low` to `high`. If
+ * `high` is ommited then the stream will be Infinite
+ *
+ * @param {Number} low
+ * @param {Number} [high]
+ * @return {Stream}
+ */
+
 Stream.range = function(low, high){
 	if (low == null) low = 1
 	if (low == high) return new Stream(low)
@@ -282,9 +291,15 @@ Stream.range = function(low, high){
 	}))
 }
 
+/**
+ * check if stream `a` is equivilent to `b`
+ *
+ * @param {Stream} a
+ * @param {Stream} b
+ * @return {Boolean}
+ */
+
 Stream.equals = lift(function(a, b){
-	if (!(a instanceof Stream)) return false
-	if (!(b instanceof Stream)) return false
 	if (a === emptyStream) return b === emptyStream
 	if (b === emptyStream) return false
 	return s(function(av, bv){
