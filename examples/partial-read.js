@@ -3,7 +3,7 @@
 var read = require('../read-file')
 var Stream = require('../')
 
-Stream.item(0, read(__filename, 2)).read(function(src){
+Stream.head(read(__filename, 2)).read(function(src){
 	console.log('is executable = %s', '#!' == src)
 	// if you put logging statements in the file
 	// readers garbage collection hook you should

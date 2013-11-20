@@ -334,3 +334,11 @@ Stream.equals = lift(function(a, b){
 		return Stream.equals(a.tail, b.tail)
 	}, a.head, b.head)
 })
+
+Stream.head = lift(function(stream){
+	return stream.head
+})
+
+Stream.tail = lift(function(stream){
+	return stream.tail
+})

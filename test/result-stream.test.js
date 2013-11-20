@@ -140,50 +140,64 @@ describe('result-stream', function(){
 		})
 	})
 
-	describe('Stream.ones', function(){
-		it('should return an Infinite stream of ones', function(){
-			is.deepEqual(Stream.ones().take(4).toArray(), [1,1,1,1])
-		})
-	})
-
-	describe('Stream.ints', function(){
-		it('should return a Infinite stream of positive ints', function(){
-			is.deepEqual(Stream.ints().take(5).toArray(), [1,2,3,4,5])
-		})
-	})
-
-	describe('Stream.make', function(){
-		it('should make a stream from arguments', function(){
-			is.deepEqual(Stream.make(1,2,3).toArray(), [1,2,3])
-		})
-	})
-
-	describe('Stream.range', function(){
-		it('should make a stream of ints from `low` to `high`', function(){
-			is.deepEqual(Stream.range(1,3).toArray(), [1,2,3])
+	describe('functions', function(){
+		describe('head', function(){
+			it('should return the value of the streams head', function(done){
+				is.equal(Stream.head(delay(new Stream(1))), 1).node(done)
+			})
 		})
 
-		it('max defaults to Infinity', function(){
-			is.deepEqual(Stream.range(10).take(2).toArray(), [10,11])
+		describe('tail', function(){
+			it('should return the streams tail', function(done){
+				is.equal(Stream.tail(delay(new Stream(1))), Stream.nil).node(done)
+			})
 		})
 
-		it('defaults to the natural numbers', function(){
-			is.deepEqual(Stream.range().take(2).toArray(), [1,2])
+		describe('ones', function(){
+			it('should return an Infinite stream of ones', function(){
+				is.deepEqual(Stream.ones().take(4).toArray(), [1,1,1,1])
+			})
 		})
-	})
 
-	describe('Stream.equals', function(){
-		it('should compare stream', function(done){
-			is.ok(Stream.equals(Stream.range(1,3), ints)).node(done)
+		describe('ints', function(){
+			it('should return a Infinite stream of positive ints', function(){
+				is.deepEqual(Stream.ints().take(5).toArray(), [1,2,3,4,5])
+			})
 		})
-	})
 
-	describe('Stream.filter', function(){
-		it('should create a new filtered stream', function(done){
-			var even = Stream.filter(function(a){
-				return a % 2 == 0
-			}, ints)
-			is.ok(Stream.equals(even, new Stream(2))).node(done)
+		describe('make', function(){
+			it('should make a stream from arguments', function(){
+				is.deepEqual(Stream.make(1,2,3).toArray(), [1,2,3])
+			})
+		})
+
+		describe('range', function(){
+			it('should make a stream of ints from `low` to `high`', function(){
+				is.deepEqual(Stream.range(1,3).toArray(), [1,2,3])
+			})
+
+			it('max defaults to Infinity', function(){
+				is.deepEqual(Stream.range(10).take(2).toArray(), [10,11])
+			})
+
+			it('defaults to the natural numbers', function(){
+				is.deepEqual(Stream.range().take(2).toArray(), [1,2])
+			})
+		})
+
+		describe('equals', function(){
+			it('should compare stream', function(done){
+				is.ok(Stream.equals(Stream.range(1,3), ints)).node(done)
+			})
+		})
+
+		describe('filter', function(){
+			it('should create a new filtered stream', function(done){
+				var even = Stream.filter(function(a){
+					return a % 2 == 0
+				}, ints)
+				is.ok(Stream.equals(even, new Stream(2))).node(done)
+			})
 		})
 	})
 })
