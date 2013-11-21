@@ -101,7 +101,7 @@ var innerReduce = lift(function(curr, stream, accum){
  */
 
 var item = lift(function(n, stream){
-	if (n === 0) return stream.head
+	if (n === 1) return stream.head
 	return when(stream.tail, function(tail){
 		return item(n - 1, tail)
 	})

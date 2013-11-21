@@ -85,7 +85,7 @@ describe('result-stream', function(){
 
 	describe('Stream#item()', function(){
 		it('should return the value of the nth item', function(done){
-			is.equal(ints.item(2), 3).node(done)
+			is.equal(ints.item(3), 3).node(done)
 		})
 	})
 
@@ -118,7 +118,7 @@ describe('result-stream', function(){
 	describe('Stream#append(a, b)', function(){
 		it('should create a new Stream with `b` at the end', function(done){
 			var b = Stream.make(delay(4), 5)
-			Result.when(is.equal(ints.append(b).item(4), 5), done, done)
+			Result.when(is.equal(ints.append(b).item(5), 5), done, done)
 		})
 	})
 
