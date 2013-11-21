@@ -115,10 +115,10 @@ var item = lift(function(n, stream){
  * @return {Stream}
  */
 
-var limit = lift(function(n, stream){
+var take = lift(function(n, stream){
 	if (n === 0) return emptyStream
 	if (this === emptyStream) return this
-	return new Stream(stream.head, limit(n - 1, stream.tail))
+	return new Stream(stream.head, take(n - 1, stream.tail))
 })
 
 Stream.prototype.each = function(fn, ctx){
@@ -126,7 +126,7 @@ Stream.prototype.each = function(fn, ctx){
 }
 
 Stream.prototype.take = function(n){
-	return limit.plain(n, this)
+	return take.plain(n, this)
 }
 
 Stream.prototype.item = function(n){
@@ -221,9 +221,9 @@ Stream.prototype.filter = function(ok){
 
 Stream.filter = lift(function filter(ok, stream){
 	if (stream === emptyStream) return stream
-	return s(function(val, tail){
-		return ok(val)
-			? new Stream(val, filter(ok, tail))
+	return s(function(head, tail){
+		return ok(head)
+			? new Stream(head, filter(ok, tail))
 			: filter(ok, tail)
 	}, stream.head, stream.tail)
 })
@@ -261,7 +261,7 @@ Stream.prototype.toString = function(){
 Stream.each = each
 Stream.reduce = reduce
 Stream.item = item
-Stream.limit = limit
+Stream.take = take
 
 Stream.ones = function(){
 	return new Stream(1, defer(Stream.ones))

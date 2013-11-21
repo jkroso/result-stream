@@ -55,9 +55,10 @@ describe('result-stream', function(){
 			spy = chai.spy(inc)
 			Stream.nil.each(spy)
 			spy.should.not.have.been.called()
-			ints.each(spy).then(function(){
+			Result.read(ints.each(spy), function(){
 				spy.should.have.been.called(3)
-			}).node(done)
+				done()
+			})
 		})
 	})
 
@@ -118,13 +119,13 @@ describe('result-stream', function(){
 	describe('Stream#append(a, b)', function(){
 		it('should create a new Stream with `b` at the end', function(done){
 			var b = Stream.make(delay(4), 5)
-			Result.when(is.equal(ints.append(b).item(5), 5), done, done)
+			Result.read(is.equal(ints.append(b).item(5), 5), done, done)
 		})
 	})
 
 	describe('Stream#toArray()', function(){
 		it('should return an array', function(done){
-			is.deepEqual(ints.toArray(), [1, 2, 3]).node(done)
+			Result.read(is.deepEqual(ints.toArray(), [1, 2, 3]), done)
 		})
 	})
 
