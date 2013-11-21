@@ -42,6 +42,10 @@ function add(a, b){ return a + b }
 
   the Stream constructor
 
+```js
+new Stream(1) // => { head: 1, tail: Stream.nil }
+```
+
 ### Stream.nil
 
   The empty stream. Pretty much an EOF marker
@@ -50,22 +54,41 @@ function add(a, b){ return a + b }
 
   call `fn` with each value in `stream`
 
+### Stream.take(n, stream)
+
+  ensure `stream` ends after `n` nodes
+
+```js
+var firstTen = Stream.take(10, Stream.ints())
+```
+
 ### Stream.reduce(stream, fn, [initial])
 
   loop through the stream passing the return value of each
   iteration as input to the next
 
+```js
+Stream.reduce(firstTen, add, 0) // => 55
+```
+
 ### Stream.item(n, stream)
 
   get the `n`th item in `stream`
 
-### Stream.limit(n, stream)
-
-  ensure `stream` ends after `n` nodes
+```js
+Stream.item(1, firstTen)  // => 1
+Stream.item(10, firstTen) // => 10
+```
 
 ### Stream.filter
 
   create a stream filter by and `ok` function
+
+```js
+var evens = Stream.filter(function(n){ return n % 2 == 0 }, firstTen)
+evens.head // => 2
+evens.tail.head // => 4
+```
 
 ### Stream.make(...)
 
@@ -78,7 +101,7 @@ function add(a, b){ return a + b }
 ### Stream.range(low, [high])
 
   create a stream of numbers from `low` to `high`. If
-  `high` is ommited then the stream will be Infinite
+  `high` is omitted then the stream will be Infinite
 
 ### Stream.equals
 
