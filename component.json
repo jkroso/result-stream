@@ -9,16 +9,16 @@
     "linked list"
   ],
   "dependencies": {
-    "jkroso/lift-result": "0.1.1",
+    "jkroso/lift-result": "0.1.3",
     "component/inherit": "0.0.2",
-    "jkroso/result": "0.4.3"
+    "jkroso/result": "0.4.4"
   },
   "development": {
-    "visionmedia/mocha": "1.14.0",
-    "chaijs/chai-spies": "0.5.1",
-    "jkroso/curryable": "0.1.1",
-    "jkroso/serve": "1.5.1",
-    "chaijs/chai": "1.8.1"
+    "visionmedia/mocha": "*",
+    "chaijs/chai-spies": "*",
+    "jkroso/curryable": "*",
+    "jkroso/serve": "*",
+    "chaijs/chai": "*"
   },
   "scripts": [
     "index.js",
